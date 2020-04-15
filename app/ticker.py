@@ -1,10 +1,13 @@
 from models import Ticker
+from datetime import datetime
 
 
-def check(timestamp_req, type_req, id_stop_req, user_req):
+def create_check(type_req, id_stop_req, user_req):
+    now = datetime.now()
+    timestamp_req = datetime.timestamp(now)
     creation = Ticker.create(timestamp=timestamp_req, type_stop=type_req,
-                            id_stop=id_stop_req, user_fk=user_req)
-    if creation.timestamp is not None:
+                             id_stop=id_stop_req, user_fk=user_req)
+    if creation.type_stop is not None:
         return "Checkin made"
     else:
         return "Failed to check-in"
@@ -47,9 +50,8 @@ def delete_check(id_req):
         return "No checkin was deleted"
 
 
-def update_site(id_req, timestamp_req, type_req, id_stop_req, user_req):
+def update_check(id_req, type_req, id_stop_req, user_req):
     query_update = (Ticker.update({
-        'timestamp': timestamp_req,
         'type_stop': type_req,
         'id_stop': id_stop_req,
         'user_fk': user_req}).where(Ticker.id == id_req))
@@ -57,5 +59,4 @@ def update_site(id_req, timestamp_req, type_req, id_stop_req, user_req):
     if rows_updated != 0:
         return "Check-in Updated"
     else:
-        return "No pill was updated"
-
+        return "No check was updated"
