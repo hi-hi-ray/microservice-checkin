@@ -144,11 +144,20 @@ def check_get_all():
       checks:
         type: object
         properties:
-          palette_name:
+          checks:
             type: array
             items:
-              $ref: '#/definitions/Color'
-      Color:
+              id : string,
+              timestamp: timestamp,
+              type_stop: string,
+              id_stop: string
+      id:
+        type: string
+      timestamp:
+        type: timestamp
+      type_stop:
+        type: string
+      id_stop:
         type: string
     responses:
       403:
@@ -194,9 +203,10 @@ def check_create():
         description: JSON parameters.
         schema:
           properties:
-            username:
+            timestamp:
               type: string
-              description: Username to be created.
+              required: false
+              description: timestamp.
               example: Teste123
             password:
               type: string
