@@ -2,19 +2,19 @@ from models import Ticker
 from datetime import datetime
 
 
-def create_check(type_req, id_stop_req, user_req):
+def create_check(type_req, id_stop_req):
     now = datetime.now()
     timestamp_req = datetime.timestamp(now)
     creation = Ticker.create(timestamp=timestamp_req, type_stop=type_req,
-                             id_stop=id_stop_req, user_fk=user_req)
+                             id_stop=id_stop_req)
     if creation.type_stop is not None:
         return "Checkin made"
     else:
         return "Failed to check-in"
 
 
-def get_checks(user_req):
-    checks = Ticker.select().where(Ticker.user_fk == user_req)
+def get_checks():
+    checks = Ticker.select()
     ticks = []
     for check in checks:
         tick = {
@@ -50,11 +50,10 @@ def delete_check(id_req):
         return "No checkin was deleted"
 
 
-def update_check(id_req, type_req, id_stop_req, user_req):
+def update_check(id_req, type_req, id_stop_req):
     query_update = (Ticker.update({
         'type_stop': type_req,
-        'id_stop': id_stop_req,
-        'user_fk': user_req}).where(Ticker.id == id_req))
+        'id_stop': id_stop_req}).where(Ticker.id == id_req))
     rows_updated = query_update.execute()
     if rows_updated != 0:
         return "Check-in Updated"

@@ -1,0 +1,260 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  description: Check-in / Ticker - API
+  title: Check-in / Ticker
+  contact:
+    email: "dutra.raysa@gmail.com"
+schemes:
+  - https
+  - http
+
+tags:
+  - name: "Ticker"
+    description: "Check-ins operations"
+  - name: "Health-Check"
+    description: "Checks if the application it`s up"
+
+paths:
+  /health-check:
+    get:
+      tags:
+        - "Health-Check"
+      summary: "It checks if the application it`s up"
+      description: "Get an 200 if it`s alive"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/message"
+
+  /ticker:
+    get:
+      tags:
+        - "Ticker"
+      summary: "It gets an array with all your check-in"
+      description: "List all tickers/check-ins"
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/checks"
+        500:
+          description: "internal server error"
+          schema:
+            $ref: "#/definitions/message"
+    post:
+      tags:
+        - "Ticker"
+      summary: "It gets an array with all your check-in"
+      description: "List all tickers/check-ins"
+      produces:
+        - "application/json"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Important information"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/checks"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/message"
+        500:
+          description: "internal server error"
+          schema:
+            $ref: "#/definitions/message"
+
+  /ticker/{id}:
+    get:
+      tags:
+        - "user"
+      summary: "Get check-in by id"
+      description: "Get a unique check made using his id"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Id of the check-in"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/checks"
+        400:
+          description: "Invalid id supplied"
+          schema:
+            $ref: "#/definitions/message"
+        404:
+          description: "Id not found"
+          schema:
+            $ref: "#/definitions/message"
+    put:
+      tags:
+        - "user"
+      summary: "Update check-in by id"
+      description: "Update a unique check made using his id"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Id of the check-in"
+          required: true
+          type: "string"
+        - in: "body"
+          name: "body"
+          description: "Important information"
+          required: true
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/checks"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/message"
+        400:
+          description: "Invalid id supplied"
+          schema:
+            $ref: "#/definitions/message"
+        404:
+          description: "Id not found"
+          schema:
+            $ref: "#/definitions/message"
+    delete:
+      tags:
+        - "user"
+      summary: "Delete check-in by id"
+      description: "Delete a unique check made using his id"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Id of the check-in"
+          required: true
+          type: "string"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/message"
+        400:
+          description: "Invalid id supplied"
+          schema:
+            $ref: "#/definitions/message"
+        404:
+          description: "Id not found"
+          schema:
+            $ref: "#/definitions/message"
+
+definitions:
+  message:
+    type: "string"
+    description: "A message appears informing something"
+  checks:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      timestamp:
+        type: "string"
+        description: "The time it was saved"
+      type_stop:
+        type: "string"
+        description: "Type of stop"
+      id_stop:
+        type: "string"
+        description: "Id of stop"
+    required:
+      - type_stop
+      - id_stop
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#
+#
+#
+#
+#
+#paths:
+#  /check:
+#    get:
+#      responses:
+#        '200':
+#          description: Ok and an array of your checks.
+#          content:
+#            application/json:
+#              schema:
+#                type: array
+#                example:
+#                  checks: {"id":1, "type_stop":"bus", "id_stop":"jacarepagua152"}
+#        '403':
+#          description: Failed in authentication.
+#          examples:
+#            message: a message will appear
+#        '500':
+#          description: Failed in application.
+#          examples:
+#            message: a message will appear
+#      summary: Get all your check-ins
+#      tags:
+#        - check-in / ticker
+#
