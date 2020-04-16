@@ -33,7 +33,10 @@ Exemplo:
 http://127.0.0.1:5000/apidocs/
 
 ## Pondo para fora
-vim /etc/nginx/sites-enabled/flaskapp
+``` vim /etc/nginx/sites-enabled/flaskapp``` 
+
+
+``` 
 content 
 
 server {
@@ -43,6 +46,7 @@ server {
                 proxy_pass http://127.0.0.1:5000;
         }
 }
+``` 
 
 
 
