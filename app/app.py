@@ -267,4 +267,5 @@ def check_update(id):
         return jsonify({"message": update_checkin}), 500
 
 
-app.run(port=5000, debug=True)
+if __name__ == '__main__':
+    app.run(port=5000, debug=True)
