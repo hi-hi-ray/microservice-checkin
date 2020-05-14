@@ -1,5 +1,6 @@
 from models import Ticker
 from datetime import datetime
+import sync as syncer
 
 
 def create_check(type_req, id_stop_req):
@@ -7,6 +8,12 @@ def create_check(type_req, id_stop_req):
     timestamp_req = datetime.timestamp(now)
     creation = Ticker.create(timestamp=timestamp_req, type_stop=type_req,
                              id_stop=id_stop_req)
+
+    syncer.send_to_sqs(creation.id,
+                       creation.type_stop,
+                       creation.id_stop,
+                       'creation', creation.timestamp)
+
     if creation.type_stop is not None:
         return "Checkin made"
     else:
