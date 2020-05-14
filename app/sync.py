@@ -14,7 +14,6 @@ def send_to_sqs(id, type_stop, id_stop, type_alert, timestamp=None):
                                                                                  type_stop, id_stop, type_alert)
 
     response = queue.send_message(MessageBody=message)
-
     print(response)
 
 
@@ -23,9 +22,9 @@ def get_from_sqs():
                             aws_access_key_id="AKIAWJLET7HYW67KFCPO",
                             aws_secret_access_key="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",
                             endpoint_url='https://sqs.sa-east-1.amazonaws.com/432392108529')
-    # data = {'id': id, 'type_stop': type_stop, 'id_stop': id_stop, 'type_alert': type_alert, 'timestamp': timestamp}
+
     queue_url = 'https://sqs.sa-east-1.amazonaws.com/432392108529/tickers'
-    queue_name = 'tickers'
+
     response = client.receive_message(
         QueueUrl=queue_url,
         AttributeNames=[
@@ -33,7 +32,6 @@ def get_from_sqs():
         ]
     )
 
-    print(response)
     return response
 
 
