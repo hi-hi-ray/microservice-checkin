@@ -35,11 +35,11 @@ def check_get(id):
 
 @app.route('/check/<string:id>', methods={'DELETE'})
 def check_delete(id):
-    delete_pill = check_module.delete_check(id)
-    if delete_pill == "Deleted checkin":
+    delete_check = check_module.delete_check(id)
+    if delete_check == "Deleted checkin":
         return jsonify({"message": "Check-in deleted"}), 200
     else:
-        return jsonify({"message": delete_pill}), 500
+        return jsonify({"message": delete_check}), 500
 
 
 @app.route('/check/<string:id>', methods={'PUT'})
