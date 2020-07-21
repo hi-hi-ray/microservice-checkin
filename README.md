@@ -1,4 +1,4 @@
-# microservice-checkin
+# microservice-toystore
 Assessment de Microserviços
 
 ## Primeira vez rodando? Siga os passos a seguir:
