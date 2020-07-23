@@ -21,8 +21,8 @@ def order_create():
     create_order = toy_order.create_order(
         request_data['id_toy'],
         request_data['quantity'])
-    if create_order == "Checkin made":
-        return jsonify({"message": "Check-in made"}), 200
+    if create_order == "Order made":
+        return jsonify({"message": "Order made"}), 200
     else:
         return jsonify({"message": create_order}), 500
 
@@ -37,7 +37,7 @@ def order_get(id):
 def order_delete(id):
     delete_order = toy_order.delete_order(id)
     if delete_order == "Deleted order":
-        return jsonify({"message": "Check-in deleted"}), 200
+        return jsonify({"message": "Order deleted"}), 200
     else:
         return jsonify({"message": delete_order}), 500
 
@@ -48,8 +48,8 @@ def order_update(id):
     update_order = toy_order.update_order(id,
                                                request_data['id_toy'],
                                                request_data['quantity'])
-    if update_order == "Check-in Updated":
-        return jsonify({"message": "Check-in Updated"}), 200
+    if update_order == "Order Updated":
+        return jsonify({"message": "Order Updated"}), 200
     else:
         return jsonify({"message": update_order}), 500
 

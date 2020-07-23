@@ -1,7 +1,7 @@
 from models import ToyOrder
 
 
-def create_item(id_toy_req, quantity_req):
+def create_order(id_toy_req, quantity_req):
     creation = ToyOrder.create(
         id_toy=id_toy_req,
         quantity=quantity_req)
@@ -12,47 +12,47 @@ def create_item(id_toy_req, quantity_req):
     #                    'creation', creation.timestamp)
 
     if creation.id_toy is not None:
-        return "Created Item"
+        return "Created Order"
     else:
-        return "Failed to create item"
+        return "Failed to create order"
 
 
 def get_orders():
     orders = ToyOrder.select()
     orders_array = []
     for orders in orders:
-        item = {
+        order = {
             'id': orders.id,
             'id_toy': orders.id_toy,
             'quantity': orders.quantity
         }
-        orders_array.append(item)
+        orders_array.append(order)
     return orders_array
 
 
-def get_item_by_id(id_req):
+def get_order_by_id(id_req):
     orders = ToyOrder.select().where(ToyOrder.id == id_req)
     orders_array = []
     for orders in orders:
-        item = {
+        order = {
             'id': orders.id,
             'id_toy': orders.id_toy,
             'quantity': orders.quantity
         }
-        orders_array.append(item)
+        orders_array.append(order)
     return orders_array
 
 
-def delete_item(id_req):
+def delete_order(id_req):
     query_delete = ToyOrder.delete().where(ToyOrder.id == id_req)
     rows_delete = query_delete.execute()
     if rows_delete != 0:
-        return "Deleted item"
+        return "Deleted order"
     else:
-        return "No item was deleted"
+        return "No order was deleted"
 
 
-def update_item(id_req, id_toy_req, quantity_req):
+def update_order(id_req, id_toy_req, quantity_req):
     query_update = (ToyOrder.update({
         'id_toy': id_toy_req,
         'quantity': quantity_req
@@ -64,6 +64,6 @@ def update_item(id_req, id_toy_req, quantity_req):
         #                    query_update.type_stop,
         #                    query_update.id_stop,
         #                    'Update', query_update.timestamp)
-        return "Item Updated"
+        return "Order Updated"
     else:
-        return "No item was updated"
+        return "No order was updated"

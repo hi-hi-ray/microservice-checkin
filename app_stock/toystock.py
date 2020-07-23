@@ -2,10 +2,9 @@ from models import ToyStock
 # import sync as syncer
 
 
-def create_item(name_req, quantity_req, description_req=None):
+def create_item(name_req, quantity_req):
     creation = ToyStock.create(
         name=name_req,
-        description=description_req,
         quantity=quantity_req)
 
     # syncer.send_to_sqs(creation.id,
@@ -14,53 +13,50 @@ def create_item(name_req, quantity_req, description_req=None):
     #                    'creation', creation.timestamp)
 
     if creation.name is not None:
-        return "Created Item"
+        return "Toy created"
     else:
-        return "Failed to create item"
+        return "Failed to create toy"
 
 
-def get_itens():
-    itens = ToyStock.select()
-    itens_array = []
-    for itens in itens:
+def get_items():
+    items = ToyStock.select()
+    items_array = []
+    for items in items:
         item = {
-            'id': itens.id,
-            'name': itens.name,
-            'description': itens.description,
-            'quantity': itens.quantity
+            'id': items.id,
+            'name': items.name,
+            'quantity': items.quantity
         }
-        itens_array.append(item)
-    return itens_array
+        items_array.append(item)
+    return items_array
 
 
 def get_item_by_id(id_req):
-    itens = ToyStock.select().where(ToyStock.id == id_req)
-    itens_array = []
-    for itens in itens:
+    items = ToyStock.select().where(ToyStock.id == id_req)
+    items_array = []
+    for items in items:
         item = {
-            'id': itens.id,
-            'name': itens.name,
-            'description': itens.description,
-            'quantity': itens.quantity
+            'id': items.id,
+            'name': items.name,
+            'quantity': items.quantity
         }
-        itens_array.append(item)
-    return itens_array
+        items_array.append(item)
+    return items_array
 
 
 def delete_item(id_req):
     query_delete = ToyStock.delete().where(ToyStock.id == id_req)
     rows_delete = query_delete.execute()
     if rows_delete != 0:
-        return "Deleted item"
+        return "Deleted toy"
     else:
-        return "No item was deleted"
+        return "No toy was deleted"
 
 
-def update_item(id_req, name_req, quantity_req, description_req=None):
+def update_item(id_req, name_req, quantity_req):
     query_update = (ToyStock.update({
         'name': name_req,
-        'description': quantity_req,
-        'quantity': description_req
+        'quantity': quantity_req
     }).where(ToyStock.id == id_req))
 
     rows_updated = query_update.execute()
@@ -69,6 +65,6 @@ def update_item(id_req, name_req, quantity_req, description_req=None):
         #                    query_update.type_stop,
         #                    query_update.id_stop,
         #                    'Update', query_update.timestamp)
-        return "Item Updated"
+        return "Toy Updated"
     else:
-        return "No item was updated"
+        return "No toy was updated"
