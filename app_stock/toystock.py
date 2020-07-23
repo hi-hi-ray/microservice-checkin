@@ -21,26 +21,26 @@ def create_item(name_req, quantity_req):
 def get_items():
     items = ToyStock.select()
     items_array = []
-    for items in items:
-        item = {
-            'id': items.id,
-            'name': items.name,
-            'quantity': items.quantity
+    for item in items:
+        toy = {
+            'id': item.id,
+            'name': item.name,
+            'quantity': item.quantity
         }
-        items_array.append(item)
+        items_array.append(toy)
     return items_array
 
 
 def get_item_by_id(id_req):
     items = ToyStock.select().where(ToyStock.id == id_req)
     items_array = []
-    for items in items:
-        item = {
-            'id': items.id,
-            'name': items.name,
-            'quantity': items.quantity
+    for item in items:
+        toy = {
+            'id': item.id,
+            'name': item.name,
+            'quantity': item.quantity
         }
-        items_array.append(item)
+        items_array.append(toy)
     return items_array
 
 

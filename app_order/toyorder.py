@@ -12,7 +12,7 @@ def create_order(id_toy_req, quantity_req):
     #                    'creation', creation.timestamp)
 
     if creation.id_toy is not None:
-        return "Created Order"
+        return "Order Created"
     else:
         return "Failed to create order"
 
@@ -20,11 +20,11 @@ def create_order(id_toy_req, quantity_req):
 def get_orders():
     orders = ToyOrder.select()
     orders_array = []
-    for orders in orders:
+    for item in orders:
         order = {
-            'id': orders.id,
-            'id_toy': orders.id_toy,
-            'quantity': orders.quantity
+            'id': item.id,
+            'id_toy': item.id_toy,
+            'quantity': item.quantity
         }
         orders_array.append(order)
     return orders_array
@@ -33,11 +33,11 @@ def get_orders():
 def get_order_by_id(id_req):
     orders = ToyOrder.select().where(ToyOrder.id == id_req)
     orders_array = []
-    for orders in orders:
+    for item in orders:
         order = {
-            'id': orders.id,
-            'id_toy': orders.id_toy,
-            'quantity': orders.quantity
+            'id': item.id,
+            'id_toy': item.id_toy,
+            'quantity': item.quantity
         }
         orders_array.append(order)
     return orders_array
@@ -47,7 +47,7 @@ def delete_order(id_req):
     query_delete = ToyOrder.delete().where(ToyOrder.id == id_req)
     rows_delete = query_delete.execute()
     if rows_delete != 0:
-        return "Deleted order"
+        return "Order Deleted"
     else:
         return "No order was deleted"
 

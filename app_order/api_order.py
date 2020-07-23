@@ -21,8 +21,8 @@ def order_create():
     create_order = toy_order.create_order(
         request_data['id_toy'],
         request_data['quantity'])
-    if create_order == "Order made":
-        return jsonify({"message": "Order made"}), 200
+    if create_order == "Order Created":
+        return jsonify({"message": "Order Created"}), 200
     else:
         return jsonify({"message": create_order}), 500
 
@@ -36,8 +36,8 @@ def order_get(id):
 @app.route('/order/<string:id>', methods={'DELETE'})
 def order_delete(id):
     delete_order = toy_order.delete_order(id)
-    if delete_order == "Deleted order":
-        return jsonify({"message": "Order deleted"}), 200
+    if delete_order == "Order Deleted":
+        return jsonify({"message": "Order Deleted"}), 200
     else:
         return jsonify({"message": delete_order}), 500
 
