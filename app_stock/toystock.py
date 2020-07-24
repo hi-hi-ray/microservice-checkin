@@ -56,15 +56,20 @@ def delete_item(id_req):
 def update_item(id_req, name_req, quantity_req):
     query_update = (ToyStock.update({
         'name': name_req,
-        'quantity': quantity_req
+        'quantity': quantity_cal(id_req, quantity_req)
     }).where(ToyStock.id == id_req))
-
     rows_updated = query_update.execute()
     if rows_updated != 0:
-        # syncer.send_to_sqs(query_update.id,
-        #                    query_update.type_stop,
-        #                    query_update.id_stop,
-        #                    'Update', query_update.timestamp)
         return "Toy Updated"
     else:
         return "No toy was updated"
+
+
+def quantity_cal(id_req, quantity_req):
+    items = ToyStock.select().where(ToyStock.id == id_req)
+    item_quantity = 0
+    for item in items:
+        item_quantity = item.quantity
+    calculation = item_quantity - quantity_req
+    return calculation
+

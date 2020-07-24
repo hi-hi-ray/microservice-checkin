@@ -12,7 +12,6 @@ class ToyOrder(BaseModel):
     id = peewee.IntegerField(unique=True, index=True, primary_key=True)
     id_toy = peewee.IntegerField(null=False)
     quantity = peewee.IntegerField(null=False)
-    id_sqs_order = peewee.CharField(null=True)
 
 
 if __name__ == '__main__':

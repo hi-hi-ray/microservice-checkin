@@ -11,7 +11,7 @@ def send_to_sqs(id, type_stop, id_stop, type_alert, timestamp=None):
     queue = client.get_queue_by_name(QueueName=queue_name)
 
     message = 'The ticker {0} at {1} in the stop {2} with id {3} has the checkin {4}'.format(id, timestamp,
-                                                                                 type_stop, id_stop, type_alert)
+                                                                                             type_stop, id_stop, type_alert)
 
     response = queue.send_message(MessageBody=message)
     print(response)
