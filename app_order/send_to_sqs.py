@@ -1,17 +1,21 @@
-import json
 import boto3
 
 
-def send_to_sqs(id, type_stop, id_stop, type_alert, timestamp=None):
+def send_to_sqs(id, id_toy, quantity):
     client = boto3.resource('sqs', region_name='sa-east-1',
-                            aws_access_key_id="AKIAWJLET7HYW67KFCPO",
-                            aws_secret_access_key="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",
-                            endpoint_url='https://sqs.sa-east-1.amazonaws.com/432392108529')
-    queue_name = 'tickers'
+                            aws_access_key_id="AKIAWJLET7HYQRUDAHFU",
+                            aws_secret_access_key="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",
+                            endpoint_url='https://sqs.sa-east-1.amazonaws.com/432392108529/ordertoystock')
+    queue_name = 'ordertoystock'
     queue = client.get_queue_by_name(QueueName=queue_name)
 
-    message = 'The ticker {0} at {1} in the stop {2} with id {3} has the checkin {4}'.format(id, timestamp,
-                                                                                             type_stop, id_stop, type_alert)
+    message = ("id: " + str(id) +
+        " id_toy: "+  id_toy +
+        " quantity: " + str(quantity))
 
     response = queue.send_message(MessageBody=message)
     print(response)
+    if response.get('MessageId') != "":
+        return "Success"
+    else:
+        return "Failed"

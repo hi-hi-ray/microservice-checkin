@@ -7,11 +7,6 @@ def create_item(name_req, quantity_req):
         name=name_req,
         quantity=quantity_req)
 
-    # syncer.send_to_sqs(creation.id,
-    #                    creation.type_stop,
-    #                    creation.id_stop,
-    #                    'creation', creation.timestamp)
-
     if creation.name is not None:
         return "Toy created"
     else:

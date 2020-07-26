@@ -1,4 +1,5 @@
 from models import ToyOrder
+import send_to_sqs as sync_sqs
 
 
 def create_order(id_toy_req, quantity_req):
@@ -6,13 +7,14 @@ def create_order(id_toy_req, quantity_req):
         id_toy=id_toy_req,
         quantity=quantity_req)
 
-    # syncer.send_to_sqs(creation.id,
-    #                    creation.type_stop,
-    #                    creation.id_stop,
-    #                    'creation', creation.timestamp)
-
     if creation.id_toy is not None:
-        return "Order Created"
+        response_sqs = sync_sqs.send_to_sqs(creation.id,
+                                            creation.id_toy,
+                                            creation.quantity)
+        if response_sqs == "Success":
+            return "Order Created"
+        else:
+            return "Failed to create order"
     else:
         return "Failed to create order"
 
@@ -60,10 +62,6 @@ def update_order(id_req, id_toy_req, quantity_req):
 
     rows_updated = query_update.execute()
     if rows_updated != 0:
-        # syncer.send_to_sqs(query_update.id,
-        #                    query_update.type_stop,
-        #                    query_update.id_stop,
-        #                    'Update', query_update.timestamp)
         return "Order Updated"
     else:
         return "No order was updated"
