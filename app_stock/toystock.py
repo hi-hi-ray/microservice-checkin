@@ -49,11 +49,17 @@ def delete_item(id_req):
 
 
 def update_item(id_req, name_req, quantity_req):
-    query_update = (ToyStock.update({
-        'name': name_req,
-        'quantity': quantity_cal(id_req, quantity_req)
-    }).where(ToyStock.id == id_req))
-    rows_updated = query_update.execute()
+    if name_req != "NoneFila":
+        query_update = (ToyStock.update({
+            'name': name_req,
+            'quantity': quantity_cal(id_req, quantity_req)
+        }).where(ToyStock.id == id_req))
+        rows_updated = query_update.execute()
+    else:
+        query_update = (ToyStock.update({
+            'quantity': quantity_cal(id_req, quantity_req)
+        }).where(ToyStock.id == id_req))
+        rows_updated = query_update.execute()
     if rows_updated != 0:
         return "Toy Updated"
     else:

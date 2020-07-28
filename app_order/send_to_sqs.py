@@ -10,7 +10,7 @@ def send_to_sqs(id, id_toy, quantity):
     queue = client.get_queue_by_name(QueueName=queue_name)
 
     message = ("id: " + str(id) +
-        " id_toy: "+  id_toy +
+        " id_toy: "+  str(id_toy) +
         " quantity: " + str(quantity))
 
     response = queue.send_message(MessageBody=message)

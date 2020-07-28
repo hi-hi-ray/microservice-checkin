@@ -13,6 +13,12 @@ Assessment de Microserviços
 #### Criando o Banco de Dados local:
 Basta rodar o models.py de cada app.
 
+### Repo na nuvem
+```
+scp -i "hihiray.pem" ~/Documents/Programming/faculdade/microservice-at.zip ec2-user@ec2-52-67-178-65.sa-east-1.compute.amazonaws.com:/home/ec2-user
+```
+
+
 ### Acessando a Documentação 
 - Orders
 https://app.swaggerhub.com/apis/hi-hi-ray/Orders_API/1.0.0
