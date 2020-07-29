@@ -29,7 +29,7 @@ def order_create():
 
 @app.route('/order/<string:id>', methods={'GET'})
 def order_get(id):
-    order = toy_order.get_orders_by_id(id)
+    order = toy_order.get_order_by_id(id)
     return jsonify(order), 200
 
 
